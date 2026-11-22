@@ -9,7 +9,7 @@ import { createMissionState, currentMission, currentStep, objectiveOf, updateMis
 import { ensureAudio, playSfx, radioName, toggleRadio, nextStation } from './audio.js';
 import { createInput } from './input.js';
 import { createCamera, updateCamera, render } from './render.js';
-import { drawHUD, drawTitle, drawPause, drawShop, drawEndOverlay, getButtons, clearButtons, showToast, showBanner, tickUi } from './ui.js';
+import { drawHUD, drawTitle, drawPause, drawShop, drawEndOverlay, getButtons, clearButtons, showToast, showBanner, clearBanner, tickUi } from './ui.js';
 
 const SAVE_KEY = 'duskport-save-v1';
 const STEP = 1 / 60;
@@ -163,13 +163,16 @@ if (shot === 'play') {
   newGame();
 } else if (shot === 'end') {
   newGame();
-  g.missions.index = 7; g.missions.step = 1; g.lastMissionIndex = 7;
+  g.missions.index = 7; g.missions.step = 0; g.lastMissionIndex = 7;
   g.player.cash = 4200; g.player.respect = 700;
-  g.player.x = 300; g.player.y = 2150;
-  if (g.player.car) { g.player.car.x = 300; g.player.car.y = 2050; }
+  // Park the player ~400px from the pickup point so the mission is in
+  // progress (spawning inside the objective radius would complete it instantly).
+  g.player.x = 1400; g.player.y = 1700;
+  if (g.player.car) { g.player.car.x = 1400; g.player.car.y = 1650; g.player.car.angle = -Math.PI / 4; }
   addWanted(g.wanted, 4, g.events);
   ensureCops(g.cops, g.wanted, g.player, world, rng);
-  showBanner('THE LAST RUN', 'Deliver the goods to the Palms mansion', 4);
+  showBanner('THE LAST RUN', 'Pick up the final goods — Industrial', 4);
+  showToast('Mission 8: Kingpin\u2019s Call — pick up the final goods');
 }
 
 function screenToWorld(sx, sy) {
@@ -465,6 +468,7 @@ function drainEvents() {
         showBanner('MISSION COMPLETE', e.mission.name + '  •  +$' + e.mission.reward + '  •  +' + e.mission.respect + ' respect');
         break;
       case 'gameComplete':
+        clearBanner();
         g.state = 'complete';
         break;
       case 'evaded':

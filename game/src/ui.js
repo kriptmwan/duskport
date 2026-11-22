@@ -12,6 +12,7 @@ export function clearButtons() { buttons = []; }
 
 export function showToast(text, seconds = 3) { toast = { text, t: seconds }; }
 export function showBanner(title, sub, seconds = 3.5) { banner = { title, sub, t: seconds }; }
+export function clearBanner() { banner = null; }
 
 export function tickUi(dt) {
   if (toast) { toast.t -= dt; if (toast.t <= 0) toast = null; }
@@ -166,7 +167,8 @@ export function drawHUD(ctx, g) {
 function drawGpsArrow(ctx, g, obj) {
   const W = g.canvasW, H = g.canvasH;
   const cx = W / 2, cy = H / 2;
-  const dx = obj.x - g.cam.x, dy = obj.y - g.cam.y;
+  const ccx = g.cam.x + W / 2, ccy = g.cam.y + H / 2;
+  const dx = obj.x - ccx, dy = obj.y - ccy;
   const dist = Math.hypot(dx, dy);
   const viewR = Math.hypot(W, H) / 2;
   if (dist < viewR * 0.75) {
@@ -180,8 +182,8 @@ function drawGpsArrow(ctx, g, obj) {
     return;
   }
   const a = Math.atan2(dy, dx);
-  const ex = cx + Math.cos(a) * (Math.min(W, H) / 2 - 60);
-  const ey = cy + Math.sin(a) * (Math.min(W, H) / 2 - 60);
+  const ex = cx + Math.cos(a) * (Math.min(W, H) / 2 - 110);
+  const ey = cy + Math.sin(a) * (Math.min(W, H) / 2 - 110);
   ctx.save();
   ctx.translate(ex, ey);
   ctx.rotate(a);
@@ -193,7 +195,7 @@ function drawGpsArrow(ctx, g, obj) {
   ctx.fillStyle = '#ffd24a';
   ctx.font = 'bold 12px system-ui, sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText(Math.round(dist) + 'm', ex, ey + 28);
+  ctx.fillText(Math.round(dist / 2) + 'm', ex, ey + 28);
 }
 
 export function drawMinimap(ctx, g) {
