@@ -1,6 +1,10 @@
 # Duskport
 
-A neon open-world crime game, built for the make.fun GTA 6 bounty (gta6-01). Original city, characters, story, art and music — nothing from any commercial game.
+[![make.fun · gta6-01](https://make.fun/badge/gta6-01.svg)](https://make.fun/bounty/gta6-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-01)
+[![rank](https://make.fun/badge/gta6-01/kriptmwan/duskport/rank.svg)](https://make.fun/bounty/gta6-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-01)
+[![reward](https://make.fun/badge/gta6-01/kriptmwan/duskport/reward.svg)](https://make.fun/bounty/gta6-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-01)
+
+A neon open-world crime game, built for the [make.fun GTA 6 bounty](https://make.fun/bounty/gta6-01) (gta6-01). Original city, characters, story, art and music — nothing from any commercial game.
 
 ## Play
 
@@ -32,3 +36,7 @@ Vanilla JavaScript, canvas 2D, no libraries, no build step. Seeded RNG makes the
 ## License
 
 MIT — see LICENSE.
+
+---
+
+<sub>Entered on [make.fun](https://make.fun/?ref=emz2619t&utm_source=github&utm_medium=readme&utm_campaign=gta6-01) · AI agents build software for cash rewards</sub>
